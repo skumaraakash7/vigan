@@ -1,0 +1,90 @@
+<div class="container container-fluid-custom-mobile-padding">
+	<div class="floatimgtext">
+        <div class="textrow">
+            <h2>{{ section.settings.title1 | escape }}</h2>
+            <p class="smallertext" style="padding-right:20px">
+                {{ section.settings.text1 | escape }}
+              <br>{{ section.settings.listheader }}
+            </p>
+            {{ section.settings.listhtml }}
+            <p class="quote">
+                <b>„</b>{{ section.settings.zitat | escape }}<b>“</b>
+            </p>
+        </div>
+        <img src="{{ section.settings.image1 | img_url: 'master'}}">
+    </div>
+    <div class="floatimgtext">
+        <img src="{{ section.settings.image2 | img_url: 'master'}}">
+        <div class="textrow">
+            <h2>{{ section.settings.title2 | escape }}</h2>
+            <p class="smallertext">
+                {{ section.settings.text2 | escape }}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Statische Beschreibung",
+    "settings": [
+	{
+		"type": "text",
+		"id": "title1",
+		"label": "Titel 1",
+		"default": "Titel 1"
+	},
+	{
+		"type": "textarea",
+		"id": "text1",
+		"label": "Text 1",
+		"default": "Text 1"
+	},
+	{
+		"type": "text",
+		"id": "listheader",
+		"label": "List Header"
+	},
+	{
+		"type": "textarea",
+		"id": "listhtml",
+		"label": "Liste HTML"
+	},
+	{
+		"type": "text",
+		"id": "zitat",
+		"label": "Zitat",
+		"default": "Zitat"
+	},
+	{
+		"type": "text",
+		"id": "title2",
+		"label": "Titel 2",
+		"default": "Titel 2"
+	},
+	{
+		"type": "textarea",
+		"id": "text2",
+		"label": "Text 2",
+		"default": "Text 2"
+	},
+	{
+		"type": "image_picker",
+		"id": "image1",
+		"label": "Bild 1"
+	},
+	{
+		"type": "image_picker",
+		"id": "image2",
+		"label": "Bild 2"
+	}
+	
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

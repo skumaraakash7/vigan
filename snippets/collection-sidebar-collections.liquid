@@ -1,0 +1,44 @@
+<div class="v-sidebar">
+  <div class="v-collapse-panel">
+    {%- assign links = settings.collectionstab_links -%}
+    {%- assign open = '' -%}{%- if settings.open_collectionstab -%}{%- assign open = 'open' -%}{%- endif -%}
+    <div class="tt-collapse {{ open }} v-collapse">
+      <h3 class="tt-collapse-title" data-title="{{ settings.collectionstab_title }}" style="display:none">{{ settings.collectionstab_title }}</h3>
+      <h4 class="collection-title">{{ collection.title }}</h4>
+        <div class="tt-collapse-content">
+        {%- if links == blank -%}
+        <a href="//shopify.com/admin/links" rel="nofollow"><u>Create and select collections linklist in navigation</u></a> and select created linklist in the <strong>Customize Theme > Sidebar Collections Tab</strong>
+        {%- else -%}
+        <ul class="tt-list-row list-unstyled">
+          {%- for parent in linklists[links].links -%}
+          <li class="sidenav-element sidenav-parent {% if parent.active %} active {% endif %}{% if parent.child_active %} active {% endif %}" >
+            <a href="{{ parent.url }}" data-title="{{ parent.title }}" class="sidenav-title"><span class="sidenav-label {% if parent.active %} sidenav-label-active{% endif %}">{{ parent.title }}</span></a>
+            {% if parent.links != blank %}
+                <ul class="children-list" {% if parent.active or parent.child_active %}style="display:block;"{% else %}style="display:none;"{% endif %}>
+                  {% for child in parent.links %}
+                    <li class="sidenav-element">
+                      <a href="{{ child.url }}" data-title="{{ child.title }}"><span class="sidenav-label{% if child.active %} sidenav-label-active{% endif %}{% if child.child_active %} sidenav-list-parent-active{% endif %}">{{ child.title }}</span></a>
+                      {% if child.links != blank %}
+                        {% if child.active or child.child_active %}
+                          <ul class="grandchildren-list{% if child.active or child.child_active %} sidenav-list-active{% endif %}">
+                            {% for grandchild in child.links %}
+                              <li class="sidenav-element">
+                                <a href="{{ grandchild.url }}"><span class="sidenav-label{% if grandchild.active %} sidenav-label-active{% endif %}">{{ grandchild.title }}</span></a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              
+            {% endif %}
+          </li>
+          {%- endfor -%}
+        </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>

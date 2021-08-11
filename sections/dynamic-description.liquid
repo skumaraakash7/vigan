@@ -1,0 +1,56 @@
+{% assign beschreibung = product.metafields.beschreibung %}
+
+<div class="container container-fluid-custom-mobile-padding">
+    <div class="features">
+
+    </div>
+    {% if product.metafields.beschreibung.bild1 != blank %}
+    <div class="floatimgtext">
+        <img src="{{ beschreibung.bild1 }}">
+        <div class="textrow">
+            <h2>{{ beschreibung.titel1 }}</h2>
+            <p>{{ beschreibung.text1 }}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% if product.metafields.beschreibung.bild2 != blank %}
+    <div class="floatimgtext">
+        <div class="textrow">
+            <h2>{{ beschreibung.titel2 }}</h2>
+            <p>{{ beschreibung.text2 }}</p>
+        </div>
+        <img src="{{ beschreibung.bild2 }}">
+    </div>
+    {% endif %}
+    {% if beschreibung.video != blank %}
+      <div class="videoblock">
+          <h3>{{ beschreibung.titelvideo }}</h3>
+          <iframe width="560" height="315" src="{{ beschreibung.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    {% endif %}
+    {% if product.metafields.beschreibung.bild3 != blank %}
+    <div class="floatimgtext">
+        <img src="{{ beschreibung.bild3 }}">
+        <div class="textrow">
+            <p class="quote">
+                <b>„</b>{{ beschreibung.zitat }}<b>“</b>
+            </p>
+            <h3 class="author">{{ beschreibung.zitatautor }}</h3>
+            <p class="team">#teamvigan</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

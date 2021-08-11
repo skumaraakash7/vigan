@@ -1,0 +1,34 @@
+<div class='item-html-js hide'>
+  <div class="tt-item" data-tt-price="">
+    <a href="#" title="{{ 'cart.header.view_product' | t }}">
+      <div class="tt-item-img">
+        img
+      </div>
+      <div class="tt-item-descriptions">
+        <h2 class="tt-title">title</h2>
+        <ul class="tt-add-info">
+          <li class="details js-variant-title data-11">Variant Title</li>
+          <li class="details js-variant-title data-12"><span class="qty">qty</span> X <span class="tt-price">price</span></li>
+        </ul>
+        <div class="tt-quantity-wrapper">
+          <div class="qty_counter">
+            <div class="qty-input">
+              <i class="less">-</i>
+                <input type="text" class="qty quantity" value="" data-cart-qty data-id="">
+              <i class="more">+</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <div class="tt-item-close">
+      <a href="/cart/change?id=0&quantity=0" class="tt-btn-close svg-icon-delete header_delete_cartitem_js" title="{{ 'cart.header.button_delete' | t }}">
+        {% comment %}
+        <!-- {% include "svg-delete-icon" %} -->
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg>
+        {% endcomment %}
+        <img src="{{ 'loeschen.png' | asset_img_url }}" class="delete-icon-new">
+      </a>
+    </div>
+  </div>
+</div>

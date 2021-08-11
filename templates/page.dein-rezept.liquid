@@ -1,0 +1,52 @@
+<div class="container-indent">
+    <div class="container container-fluid-custom-mobile-padding dein-rezept">
+        {{ page.content }}
+        {%- form 'contact' -%}
+        <div class="form-group">
+            <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" class="form-control" id="inputName" placeholder="Vorname & Name*">
+        </div>
+        <div class="form-group">
+            <input type="email" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="form-control" id="inputEmail" placeholder="E-Mail-Adresse*">
+        </div>
+        <div class="form-group">
+            <textarea name="contact[body]" class="form-control" rows="8" placeholder="Informationen zu dir und zu deinem Rezept*" id="textareaMessage">{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn ttbtnmainstyle">{{ 'contact.form.send' | t }}</button>
+        </div>
+        {%- endform -%}
+    </div>
+    </div>
+</div>
+
+<style>
+    .dein-rezept img {
+        float: right;
+        margin: 15px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        align-self: center;
+    }
+    @media only screen and (max-width: 790px) {
+        .dein-rezept img {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .dein-rezept h3 {
+        padding-bottom: 6px !important;
+    }
+    .dein-rezept p {
+        margin-top: 0px !important;
+        margin-bottom: 6px !important;
+    }
+    .dein-rezept li p {
+        margin: 0 !important;
+    }
+    .dein-rezept .form-group input, .dein-rezept .form-group textarea{
+        border-radius: 15px;
+    }
+</style>

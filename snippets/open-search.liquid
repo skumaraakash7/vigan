@@ -1,0 +1,17 @@
+{%- if settings.search_is_open -%}
+<div class="tt-parent-box tt-desctop-parent-headtype1">
+  <div class="tt-search-opened-headtype1 headerformplaceholderstyles">
+    <form action="/search" method="get" role="search">
+      <button type="submit" class="tt-btn-search">
+        <i class="icon-f-85"></i>
+      </button>
+      <input class=""
+             type="search"
+             name="q"
+             placeholder="{{ 'general.search.place_holder' | t }}">
+      <input type="hidden" name="type" value="product" />
+      <input type="hidden" name="options[prefix]" value="last" />
+    </form>
+  </div>
+</div>
+{%- endif -%}

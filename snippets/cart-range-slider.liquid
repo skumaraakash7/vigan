@@ -1,0 +1,38 @@
+<div class="block--cart-range"
+    data-free-shipping-threshold="{{settings.free_shipping_threshold}}"
+    {% if settings.is_free_gift_enabled == true and settings.free_gift_threshold != nil %}
+        {% assign free_product = all_products[settings.free_gift_product] %}
+        data-free-gift-product="{{free_product.selected_or_first_available_variant.id}}"
+        data-free-gift-product-handle="{{free_product.handle}}"
+        data-free-gift-threshold="{{settings.free_gift_threshold}}"
+    {% endif %}
+    >
+    <div class="block--cart-range-slider">
+        <img class="block-cart-range-slider-truck-icon" src="{{'versand-rechts.png' | asset_img_url: '20x'}}" />
+        <span class="block-cart-range-slider-truck-icon-line"></span>
+        <img class="block-cart-range-slider-gift-icon" src="{{'geschenke.png' | asset_img_url: '20x'}}" />
+        <span class="block-cart-range-slider-gift-icon-line"></span>
+        <div class="block--cart-range-slider-bar"></div>
+    </div>
+    <div class="block--cart-meta-success-wrapper">
+        <div class="cart-meta-success-top">
+            <p>&#10084;&#65039;-lichen Glückwunsch zum:</p>
+        </div>
+        <div class="cart-meta-success-bottom">
+            <span class="block--cart-meta-success-free-shipping-success">
+            {% include 'green-check-svg.liquid' %}Gratis Versand
+        </span>
+            <span class="block--cart-meta-success-free-gift-success">
+            {% include 'green-check-svg.liquid' %}Gratis Geschenk
+        </span>
+        </div>
+    </div>
+    {% raw %}
+        <div class="block--cart-meta-data-wrapper">
+            <div class="block--cart-meta-free-shipping"
+            data-text="Nur noch {{remaining}} bis zum gratis Versand!">Nur noch CHF 36.50 bis zum gratis Versand!</div>
+            <div class="block--cart-meta-free-gift"
+            data-text="Nur noch {{remaining}} bis zu deinem Geschenk!">Nur noch CHF 29.50 bis zu deinem gratis Geschenk!</div>
+        </div>
+    {% endraw %}
+</div>

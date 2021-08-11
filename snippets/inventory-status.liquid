@@ -1,0 +1,62 @@
+<div class="allvariants" style="display:none;">
+    {% for variant in product.variants %}
+        {% assign percentoffhtml = "" %}
+        {% if variant.price < variant.compare_at_price %}
+            {% assign difference = variant.compare_at_price | minus: variant.price | times: 100 %}
+            {% assign my_float_compare = variant.compare_at_price | times: 1.0 %}
+            {% assign percentoff = difference | divided_by: my_float_compare | round %}
+            {% capture percentoffhtml %}-{{ percentoff }}%{% endcapture %}
+        {% endif %}
+        <span data-percentoff="{{percentoffhtml}}" data-title="{{variant.title}}" id="var-{{variant.id}}" data-digital="{% if product.tags contains 'digital' %}1{% else %}0{% endif %}" data-qty="{{variant.inventory_quantity}}" data-policy="{{variant.inventory_policy}}"></span>
+    {% endfor %}
+</div>
+<style>
+    .inventory-status-hide { display:none; }
+</style>
+<div class="inventory-status">
+    <div class="available-variant inventory-status-hide">
+    <span style="color:#01ae04">
+      <img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/check.png?v=1614870797" style="width:15px;margin-right:5px">
+      Vorrätig
+    </span>
+        <span> | in 1-2 Werktagen bei dir zu Hause</span>
+    </div>
+    <div class="continue-variant inventory-status-hide">
+    <span style="color:#01ae04">
+      <img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/check.png?v=1614870797" style="width:15px;margin-right:5px">
+      Versandbereit
+    </span>
+        <span> | in 2-4 Werktagen bei dir zu Hause</span>
+    </div>
+    <div class="soldout-variant inventory-status-hide">
+    <span style="color:#fd0060">
+      <img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/x.png?v=1614870797" style="width:15px;margin-right:5px">
+      Ausverkauft
+    </span>
+        <span> | Temporär nicht lieferbar</span>
+    </div>
+    <div class="gift-card-variant inventory-status-hide">
+        <span syle="color:#01ae04">
+            <img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/check.png?v=1614870797" style="width:15px;margin-right:5px">
+            Vorrätig
+        </span>
+        <span> | in wenigen Minuten in deiner Mailbox</span>
+    </div>
+    {% if product.tags contains 'digital' %}
+        <style>
+            .gift-card-variant.inventory-status-hide {display:block;}
+        </style>
+    {% elsif product.selected_or_first_available_variant.inventory_quantity > 0 %}
+        <style>
+            .available-variant.inventory-status-hide { display:block; }
+        </style>
+    {% elsif product.selected_or_first_available_variant.inventory_policy == 'continue' %}
+        <style>
+            .continue-variant.inventory-status-hide { display:block; }
+        </style>
+    {% else %}
+        <style>
+            .soldout-variant.inventory-status-hide { display:block; }
+        </style>
+    {% endif %}
+</div>

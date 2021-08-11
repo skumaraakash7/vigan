@@ -1,0 +1,153 @@
+<div class="container-indent">
+    <div class="container container-fluid-custom-mobile-padding">
+        <div class="recipe-grid">
+            <img class="recipe-grid-item recipe-image" src="{{ article.image.src | img_url: '450x450' }}">
+            <div class="recipe-grid-item recipe-info">
+                <h5 class="tt-title">{{ article.title }}</h5>
+                <div class="recipe-content">
+                    {{ article.content }}
+                </div>
+                {% if article.metafields.global.preparing-time != blank %}
+                    <div class="recipe-info-item">
+                        <img src="{{ 'time.jpg' | asset_img_url }}">
+                        <p>Vor- und zubereiten: <span
+                                    style="font-weight: bold;color:#fe0062;">{{ article.metafields.global.preparing-time }}</span>
+                        </p>
+                    </div>
+                {% endif %}
+                {% if article.metafields.global.cooking-time != blank %}
+                    <div class="recipe-info-item">
+                        <img src="{{ 'koch.jpg' | asset_img_url }}">
+                        <p>Kochzeit: <span
+                                style="font-weight: bold;color:#fe0062;">{{ article.metafields.global.cooking-time }}</span>
+                        </p>
+                    </div>
+                {% endif %}
+                {% if article.metafields.global.cooling-time != blank %}
+                    <div class="recipe-info-item">
+                        <img src="{{ 'recycelbarer-kuehlversand.png' | file_img_url }}">
+                        <p>Kühlzeit: <span
+                                    style="font-weight: bold;color:#fe0062;">{{ article.metafields.global.cooling-time }}</span>
+                        </p>
+                    </div>
+                {% endif %}
+                {% if article.metafields.global.podcast-link != blank %}
+                    <div class="recipe-info-item">
+                        <img src="{{ 'podcast.jpg' | asset_img_url }}" class="micro">
+                        <a href="{{ article.metafields.global.podcast-link }}"><p>
+                                <span style="font-weight: bold;color:#fe0062;">Keine Lust zu lesen?</span>
+                                Klicke jetzt hier und hör dir das komplette Rezept in unserem Podcast an.
+                            </p></a>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="recipe-grid-item recipe-ingredients">
+                <h5 class="tt-title">Man nehme...</h5>
+                {{ article.metafields.global.ingredients }}
+            </div>
+            <div class="recipe-grid-item recipe-steps">
+                <h5 class="tt-title">Und so wird's gemacht...</h5>
+                {{ article.metafields.global.steps }}
+            </div>
+        </div>
+    </div>
+</div>
+{% if article.metafields.global.collection-handle != blank %}
+    {% include 'popular-products', colored_title: 'NACHMACHEN?', second_title: 'Produkte zum Rezept:', my_collection: collections[article.metafields.global.collection-handle] %}
+{% endif %}
+<div class="container-indent">
+    <div class="container container-fluid-custom-mobile-padding">
+        <div class="recipe-idea">
+            <h5 class="tt-title">Du hast eine coole Rezeptidee? &#x1F914; <span>Teile sie mit uns!</span></h5>
+            Du möchtest deine Rezeptidee mit uns und der #teamvigan Community teilen? Dann schicke uns doch eine private Nachricht
+            auf einem unserer Social Media Kanälen und schau mal <b><a href="/pages/dein-rezept">hier</a></b> vorbei.
+            Mit etwas Glück veröffentlichen wir deine Idee auf der Rezpetseite. Und wer weiss, vielleicht laden
+            wir dich zu einem Interview in unserem Podcast ein.</p>
+        </div>
+    </div>
+</div>
+{% include 'popular-recipes' %}
+<style>
+    .recipe-grid {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        font-size: 16px !important;
+    }
+    .recipe-grid h5 {
+        color: #353535;
+        font-size: 23px !important;
+        line-height: 36px !important;
+        font-weight: 800 !important;
+    }
+    .recipe-image {
+        border-radius: 15px;
+        max-width: 100%;
+    }
+    .recipe-content {
+        font-style: italic;
+        margin-bottom: 15px;
+    }
+    .recipe-info-item {
+        display: flex;
+        text-align: left;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+    .recipe-info-item img {
+        height: 20px;
+        margin-right: 10px;
+    }
+    .micro {
+        margin-right: 16px !important;
+    }
+    .recipe-info-item p {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 14px !important;
+    }
+    .recipe-steps ol {
+        padding-inline-start: 20px;
+    }
+    .recipe-steps ol > li::marker {
+        font-weight: bold;
+    }
+    .recipe-steps li {
+        margin-bottom: 5px;
+    }
+    .recipe-ingredients figure {
+        margin: 0;
+    }
+    .recipe-ingredients tr {
+        margin-bottom: 5px;
+    }
+    .recipe-idea {
+        margin-top: 40px;
+        font-size: 16px !important;
+    }
+    .recipe-idea h5 {
+        padding: 0 !important;
+        color: #353535;
+        font-size: 23px !important;
+        line-height: 36px !important;
+        font-weight: 800 !important;
+    }
+    .recipe-idea p {
+        margin: 0 !important;
+    }
+    .recipe-idea h5 span {
+        font-weight: normal !important;
+    }
+    @media only screen and (max-width: 749px) {
+        .recipe-grid {
+            display: block;
+        }
+        .recipe-ingredients {
+            margin-bottom: 15px;
+        }
+        .recipe-info {
+            margin-top: 10px;
+        }
+    }
+</style>

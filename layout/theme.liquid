@@ -1,0 +1,306 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js{% if settings.use_rtl %} rtlstyle{% endif %}" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html{% if settings.use_boxed %} id="tt-boxed"{% endif %} class="no-js{% if settings.use_rtl %} rtlstyle{% endif %}" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <script src="https://www.googleoptimize.com/optimize.js?id=OPT-KRHPP5F"></script>
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_base }}">
+  <meta name="keywords" content="{{ "general.meta.keywords" | t }}" />
+  <meta name="author" content="{{ "general.meta.author" | t }}">
+  <meta name="facebook-domain-verification" content="gj5ht15qu7e45td862fcx7p0mk6s44" />
+  <link rel="canonical" href="{{ canonical_url }}">
+<!-- them new -->
+  {%- if settings.favicon != blank and settings.use_favicon -%}
+  	<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  <!-- Title and description ================================================== -->
+  {%- capture seo_title -%}
+    {{ page_title }}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- unless page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title }}</title>
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {%- if settings.use_countdown_timezone -%}<meta name="timezone" content="{{ settings.countdown_timezone }}">{%- endif -%}
+  
+  <!-- Social meta ================================================== -->
+  {%- include 'social-meta-tags' -%}
+
+  <!-- Helpers ================================================== -->
+
+  <!-- CSS ================================================== -->
+  {%- if settings.font1_is_google_font -%}
+  <link href="https://fonts.googleapis.com/css?family={{ settings.font_name1 }}:100,200,300,400,500,600,700,800,900" rel="stylesheet" defer>
+  {%- endif -%}
+  {%- if settings.font_name1 != settings.font_name2 and settings.font_name2 != '' and settings.font2_is_google_font -%}
+  <link href="https://fonts.googleapis.com/css?family={{ settings.font_name2 }}:100,200,300,400,500,600,700,800,900" rel="stylesheet" defer>
+  {%- endif -%}
+  {%- if settings.popup_newsletter_show and settings.use_as_simple_popup and settings.popup_simple_fonts != "" -%}
+  {{ settings.popup_simple_fonts }}
+  {%- endif -%}
+  {{ settings.google_font_links }}
+
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  {%- include "include_css" -%}
+  <script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
+  {%- if template contains 'customers' -%}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag | remove: ' type="text/javascript"' }}
+  {{ 'customer_area.js'  | shopify_asset_url | script_tag | remove: ' type="text/javascript"' }}
+  {%- endif -%}
+  
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+  <!-- /Header hook for plugins ================================================== -->
+
+  {%- unless settings.show_emptyreview -%}
+  <style>
+    [data-rating="0.0"]{
+      display:none !important;
+    }
+  </style>
+  {%- endunless -%}
+ 
+{% include 'pagefly-header' %}
+
+  <!-- Hotjar Tracking Code for https://vigan.me -->
+  <script>
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:1918566,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
+ 
+{% render 'gsf-conversion-pixels' %}
+  {% include 'judgeme_core' %}
+  <script type="text/javascript">
+    var _support = _support || { 'ui': {}, 'user': {} };
+    _support['account'] = 'vigan';
+    _support['contact_custom_fields'] = _support['contact_custom_fields'] || {};
+    _support['contact_custom_fields']['rmz_form_id_26676'] = {};
+  </script>
+</head> 
+<body class="page{{ template }}" {% if template contains '404' %}id="template404"{% elsif settings.use_scale_product_image %}
+      id="same_product_height"{% if settings.notsamewidth %} data-type="not_same_width"{% endif %}{% endif %}
+      {% if request.design_mode %} data-supportcode="{{ settings.supportcode }}"{% endif %}>
+  {%- if settings.show_helper -%}{%- section "show-helper" -%}{%- endif -%}
+  {%- if settings.show_preloader -%}{%- include "main-loader" -%}{%- endif -%}
+
+  {%- if settings.header_design == "header_type_1" -%}
+  {%- capture var_header -%}{%- section "header-template" -%}{%- endcapture -%}
+  {{ var_header }}
+  {%- else -%}
+  {%- if settings.header_design == "header_type_2" -%}
+  {%- capture var_header -%}{% section 'header-template-2' %}{%- endcapture -%}
+  {%- elsif settings.header_design == "header_type_3" -%}
+  {%- capture var_header -%}{% section 'header-template-3' %}{%- endcapture -%}
+  {%- elsif settings.header_design == "header_type_4" -%}
+  {%- capture var_header -%}{% section 'header-template-4' %}{%- endcapture -%}
+  {%- elsif settings.header_design == "header_type_5" -%}
+  {%- capture var_header -%}{% section 'header-template-5' %}{%- endcapture -%}
+  {%- endif -%}
+  {%- if var_header contains '<div class="CATEGORIE MOBILE"></div>' -%}
+  {%- capture var_categorie_button -%}{% if settings.header_design == "header_type_4" %}{% section 'categorie-button-icons-menu' %}{% else %}{% section 'categorie-button' %}{% endif %}{%- endcapture -%}
+  {{ var_categorie_button | split:"[PARTMOBILE]" | first | append: "</div>" }}
+  {%- assign var_categorie_mobile = var_categorie_button | split:"[PARTMOBILE]" | last | split: "[/PARTMOBILE]" | first -%}
+  {%- assign var_categorie_button = var_categorie_button | split:"[PART]" | last | split: "[/PART]" | first -%}
+  {{ var_header | replace: '<div class="CATEGORIE MOBILE"></div>', var_categorie_mobile | replace: "[CATEGORIE, PLEASE SAVE PAGE]", var_categorie_button }}
+  {%- else -%}
+  {{ var_header }}
+  {%- endif -%}
+  {%- endif -%}
+  
+  {% if settings.show_breadcrumbs %}{%- include "breadcrumb" -%}{% endif %}
+  <div id="tt-pageContent"{% if settings.show_unavailable_variants %} class="show_unavailable_variants"{% endif %}>
+    {{ content_for_layout }}
+  </div>
+
+  {%- assign blockinuse = '' -%}
+  {% comment %}
+  {%- for i in (1..5) -%}
+  {%- assign footer_position = 'footer_position_' | append: i -%}{%- assign csection = settings[footer_position] -%}
+  {%- if csection != 'none' -%}
+  {%- unless blockinuse contains csection -%}{%- assign blockinuse = blockinuse | append: csection | append: '%%' -%}
+  {%- case csection -%}
+  {%- when "footer-section-subscribe" -%}{%- section "footer-section-subscribe" -%}
+  {%- when "footer-section-blurbs" -%}{%- section "footer-section-blurbs" -%}
+  {%- when "footer-section-text_plus_image_vertical" -%}{%- section "footer-section-text_plus_image_vertical" -%}
+  {%- when "footer-section-iconbanners" -%}{%- section "footer-section-iconbanners" -%}
+  {%- else -%}{%- section "footer-template" -%}
+  {%- endcase -%}
+  {%- endunless -%}{%- endif -%}
+  {%- endfor -%}
+  {% endcomment %}
+
+  {%- section "footer-section-subscribe" -%}
+  {%- section 'custom-footer' -%}
+  {%- section "footer-section-text_plus_image_vertical" -%}
+
+  {%- if settings.show_footer_instagram_section -%}
+  {%- section "footer-section-instagram" -%}
+  {%- endif -%}
+  {%- if settings.show_back_to_top_button -%}<a href="#" class="tt-back-to-top">{{ 'general.general.to_top_button' | t }}</a>{% endif %}
+  {%- if settings.product_item_show_quickview -%}
+  {%- if content_for_layout contains 'data-target="#ModalquickView"' or content_for_layout contains "index_sectiontabs" or template contains "product" -%}{%- include "modal-quickview" -%}
+  {%- elsif template == "index" and settings.home_page_layout == 'home-page_layout-2' -%}{%- include "modal-quickview" -%}
+  {%- endif -%}{%- endif -%}
+  {%- if settings.show_addtocart_popup -%}{%- include "modal-addtocart" -%}{%- endif -%}
+  {%- include "preloader-ajax" -%}
+
+  <script>
+    var theme = {},
+		shop_url = '{{ shop.url }}',
+    	money_format = '{{ shop.money_format }}',
+        color_with_border = '{{ settings.shopby_color_filter_border }}' || 'empty',
+        colors_value = '{{ ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' }}',
+    	texture_obj = function(){
+      {%- assign str = '{' -%}
+      {%- for i in (1..settings.image_options_count) -%}
+      {%- assign key = 'filter_color' | append:i -%}
+      {%- unless settings[key] == blank -%}
+      {%- assign image = 'filter_color' | append:i | append:'.png' -%}
+      {%- assign image = image | asset_url -%}
+      {%- if str.size > 1 -%}{%- assign str = str | append: ',' -%}{%- endif -%}
+      {%- assign str = str | append:'"' | append: settings[key] | append:'"' | append: ':' | append:'"' | append: image | append:'"' -%}
+      {%- endunless -%}
+      {%- endfor -%}
+      {%- assign str = str | append: '}' -%}
+      return JSON.parse('{{ str }}');
+    }
+    texture_obj = texture_obj();
+
+    var wokiee_app = {
+      url: '{{ shop.metafields.ollistsapp.appurl }}',
+      loader_text: '{{ "wishlist.buttons_text.tooltop_load_text" | t }}',
+      main_info: {
+        customerid: '{{ customer.id }}',
+        iid: '{{ shop.metafields.ollistsapp.iid }}',
+        shop: '{{ shop.permanent_domain }}',
+      	domain: '{{ shop.domain }}',
+      	lic: '{{ settings.license }}',
+      }
+    };
+    
+
+    var set_day = '{{ "general.countdown.day" | t | strip_newlines }}',
+        set_hour = '{{ "general.countdown.hour" | t | strip_newlines }}',
+        set_minute = '{{ "general.countdown.minute" | t | strip_newlines }}',
+        set_second = '{{ "general.countdown.second" | t | strip_newlines }}';
+    
+    var addtocart_text = '{{ "products.general.add_to_cart_html" | t | strip_newlines }}',
+    	unavailable_text = '{{ "products.general.unavailable_html" | t | strip_newlines }}',
+        addedhtml_text = '{{ "products.general.added_html" | t | strip_newlines }}',
+        errorhtml_text = '{{ "products.general.error_html" | t | strip_newlines }}',
+        preorderhtml_text = '{{ "products.general.preorder_html" | t | strip_newlines }}',
+        wait_text = '{{ "products.general.wait_html" | t | strip_newlines }}',
+        b_close = '{{ "general.menu.button_close" | t | strip_newlines }}',
+        b_back = '{{ "general.menu.button_back" | t | strip_newlines }}',
+        seeallresults = '{{ "general.search.see_all_results" | t | strip_newlines }}';
+        
+    var small_image = '{{ 'dummy.png' | asset_url }}';
+
+    
+    
+    {% if settings.terms_cond_checkbox_show %}
+    window.addEventListener('DOMContentLoaded', function() {      
+      var $buyinoneclick = $('.buyinoneclick');
+      if($buyinoneclick.length){
+        $buyinoneclick.first().bind('DOMNodeInserted', function() {
+          setTimeout(function(){
+            var $shopifypaymentbutton = $('.buyinoneclick').find(".shopify-payment-button__button");
+            if($shopifypaymentbutton.length){
+              $buyinoneclick.hide();
+              setTimeout(function(){
+                $(".shopify-payment-button__button").attr('disabled', true);
+                $buyinoneclick.fadeIn()
+              }, 300);
+            }
+          }, 0);
+        });
+      }
+     
+
+      $('body').on('click', '.term-conditions-checkbox-js input', function(e){
+        var _ = $(this).closest('.term-conditions-checkbox-js').parent().parent(),
+            a = _.find('a[href*="checkout"]'),
+            b = _.find('button[name=checkout]'),
+            b2 = _.find('.buyinoneclick button'),
+            text = '{{ settings.terms_cond_checkbox_texterr }}';
+            if($(this).is(':checked')){
+              a.length && a.removeClass('disabled');
+              b.length && b.removeAttr('disabled');
+              b2.length && b2.removeAttr('disabled');
+            }
+        else{
+          a.length && a.addClass('disabled');
+          b.length && b.attr('disabled', true);
+          b2.length && b2.attr('disabled', true);
+        }
+      });
+    });
+    {% endif %}
+  </script>
+  <script type="text/javascript">
+    var cart_data = {{ cart | json}};
+  </script>
+  {%- include "include_js" -%}
+  {%- include "currencies" -%}
+  {%- include 'modal-newsletter' -%}
+  {%- include "modal-subscribe_message" -%}
+  {%- include 'modal-wishlist-alert' -%}
+  {%- section "promo-fixed" -%}
+
+  {%- if settings.all_links_is_external or settings.menu_links_is_external or settings.external_links_is_external -%}
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      {% if settings.all_links_is_external %}
+      jQuery('a').attr('target', '_blank');
+      {% endif %}
+      {% if settings.menu_links_is_external %}
+      jQuery('.tt-desctop-menu a').attr('target', '_blank');
+      jQuery('.panel-menu a').attr('target', '_blank');
+      {% endif %}
+      {% if settings.external_links_is_external %}
+      jQuery('a[href^="http"]').attr('target', '_blank')
+      {% endif %}
+    });
+  </script>
+  {%- endif -%}
+  
+  {% comment %}
+  {%- if settings.show_helper -%}
+    <script>
+      var adminlinks = '{{ settings.helper_info }}';
+    </script>
+    <script src="{{ 'admin-panel.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+  {% endcomment %}
+  
+  {{ settings.some_code_field }}
+
+  <div id="safari-fix" style="color: #f3f3f3; background-color: #f3f3f3;"><span><!-- Don't remove! This strong boy prevents the website from a weird scrolling bug on Safari (iPhone with iOS 14) --><svg height="5px" width="5px" fill="#f3f3f3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><g><path fill="#f3f3f3" d="M87.905,30.697c-2.378-3.103-5.338-6.083-9.103-7.397c-2.113-0.738-6.439-1.641-7.68,0.906   c-0.193,0.396,0.05,0.763,0.467,0.813c11.507,1.396,16.129,13.88,16.536,24.037c0.201,5.023-0.856,10.343-4.4,14.11   c-3.141,3.338-8.182,4.756-12.635,3.929c-2.172-0.403-4.295-1.171-6.317-2.049c-0.509-0.221-0.734-0.294-0.98-0.678   c-0.643-1.007-1.453-1.907-2.305-2.739c-3.644-3.563-8.414-5.78-12.78-8.297c-4.873-2.809-10.249-4.994-13.925-9.406   c-1.369-1.643-2.047-3.415-1.903-5.559c0.202-2.988,1.384-5.938,2.238-8.781c2.269-7.557,2.898-18.65-6.229-21.764   C24.654,6.377,19.33,6.077,15.176,7.94c-1.682,0.754-2.76,2.159-3.789,3.641c-0.543,0.781-1.047,1.589-1.577,2.379   c-0.277,0.413-0.7,1.244-1.205,1.424c-0.31,0.11-0.407,0.403-0.355,0.656c-0.091,0.115-0.136,0.268-0.09,0.452   c0.435,1.73-0.425,3.457-1.159,4.98c-0.767,1.591-1.637,3.176-1.936,4.937c-0.54,3.179,2.382,5.871,5.037,7.065   c3.279,1.475,6.238-1.269,8.365-3.484c1.028-1.071,1.946-2.19,2.818-3.385c0.959,4.654-0.392,9.369-1.862,13.92   c-0.06-0.09-0.149-0.165-0.271-0.211c-1.996-0.753-9.951,0.976-6.657,3.994c0.313,0.287,0.765,0.15,0.903-0.239   c0.312-0.876,1.104-1.141,0.914,0.05c-0.055,0.341,0.141,0.684,0.521,0.684c0.69,0,1.156-0.317,1.522-0.886   c0.532-0.828,0.67-1.349,1.829-1.077c0.243,0.057,0.435-0.042,0.551-0.198c-0.315,0.975-0.619,1.94-0.89,2.894   c-1.593,5.608-2.131,11.254-1.074,17.011c0.939,5.113,3.162,10.048,6.692,13.894c0.028,0.03,0.057,0.058,0.085,0.088   c0.048,0.122,0.138,0.225,0.269,0.278c1.678,1.728,3.69,3.132,5.684,4.464c0.461,0.308,0.929,0.605,1.4,0.897   c-1.606,0.066-3.208,0.412-4.742,0.862c-0.856,0.252-4.816,1.311-3.971,2.86c0.778,1.427,3.652,0.599,4.776,0.243   c2.875-0.912,5.886-1.494,8.91-1.34c0.375,0.163,0.751,0.322,1.132,0.472c2.075,0.818,4.286,1.345,6.523,1.349   c0.004,0,0.008-0.001,0.012-0.001c0.337,0.392,0.683,0.767,1.039,1.121c-2.455,0.049-4.963,0.424-7.334,0.906   c-1.668,0.339-6.162,1.209-5.449,3.814c0.626,2.288,3.566-0.431,4.702-0.84c1.458-0.524,3.064-0.313,4.574-0.259   c1.716,0.062,3.433-0.128,5.135-0.32c2.286-0.258,4.456-0.287,6.745-0.324c1.379-0.022,3.686,0.005,3.88-1.816   c0.133-1.248-0.208-2.221,0.342-3.418c0.481-1.047,1.092-2.036,1.66-3.038c1.067-1.879,2.145-3.914,3.693-5.447   c1.592-1.576,4.744-0.21,6.538,0.324c2.212,0.658,4.433,0.642,6.708,0.306C86.75,76,93.5,64.665,94.769,54.445   C95.838,45.831,93.14,37.53,87.905,30.697z M18.471,41.799c-0.859-0.201-1.69-0.206-2.348,0.452   c-0.289,0.288-0.451,0.843-0.736,1.183c-0.07-0.551-0.333-1.024-0.959-1.253c-0.631-0.231-1.169,0.141-1.552,0.641   c0.072-0.655,1.426-1.007,2.124-1.191c1.091-0.288,2.757-0.691,3.864-0.274c0.104,0.039,0.198,0.043,0.281,0.025   c-0.097,0.296-0.193,0.592-0.288,0.887C18.853,42.06,18.738,41.861,18.471,41.799z M30.188,84.182   c-2.056,0.399-4.083,1.399-6.196,1.364c-0.225-0.004-0.466-0.029-0.685-0.101c0.003-0.005,0.005-0.008,0.008-0.012   c0.172-0.132,0.355-0.249,0.547-0.349c0.89-0.511,1.925-0.816,2.904-1.104c1.942-0.571,4.093-0.955,6.116-0.657   c0.253,0.138,0.507,0.273,0.763,0.405C32.488,83.799,31.335,83.96,30.188,84.182z M91.56,62.291   c-2.177,5.315-5.822,10.167-11.053,12.738c-2.496,1.227-5.286,1.777-8.056,1.752c-2.329-0.021-4.436-1.056-6.711-1.429   c-2.042-0.335-3.453,0.152-4.744,1.737c-1.322,1.623-2.343,3.489-3.374,5.303c-0.573,1.01-1.162,2.012-1.618,3.082   c-0.455,1.068-0.201,2.043-0.222,3.163c-0.029,1.547-4.445,0.988-5.462,0.971c-2.822-0.046-5.625,0.63-8.452,0.676   c-1.461,0.024-2.906-0.184-4.363,0.005c-1.399,0.181-2.433,0.824-3.614,1.537c-0.31,0.187-0.63,0.357-0.98,0.437   c-0.602-1.734,4.272-2.516,5.252-2.702c2.545-0.483,5.257-0.83,7.856-0.735c0.674,0.025,0.692-0.981,0.066-1.072   c-0.026-0.075-0.071-0.148-0.145-0.215c-4.483-4.079-7.453-11.054-6.112-17.115c0.663-2.994,2.724-5.621,5.646-6.656   c2.877-1.019,6.898-0.794,8.831,1.87c0.405,0.558,1.344,0.02,0.933-0.546c-2.063-2.843-5.818-3.356-9.056-2.649   c-3.368,0.735-5.869,3.298-7.04,6.471c-1.979,5.362,0.026,11.927,3.511,16.589c-2.156-0.133-4.264-0.729-6.289-1.594   c-0.087-0.108-0.218-0.184-0.392-0.194c-0.018-0.001-0.036-0.001-0.054-0.002c-0.79-0.355-1.566-0.748-2.328-1.169   c-0.053-0.127-0.166-0.227-0.354-0.256c-0.044-0.007-0.088-0.011-0.132-0.018c-1.836-1.052-3.58-2.25-5.201-3.427   c-0.91-0.661-1.756-1.371-2.546-2.124c3.241-0.631,5.54-3.465,8.16-5.343c0.561-0.402,0.022-1.341-0.546-0.933   c-2.659,1.906-5.089,5.097-8.568,5.312c-1.943-2.075-3.484-4.449-4.636-7.081c3.018,0.184,6.027-1.104,8.347-2.987   c0.542-0.44-0.228-1.2-0.764-0.764c-2.182,1.771-5.193,3.026-8.043,2.632c-0.234-0.604-0.45-1.219-0.646-1.848   c-0.4-1.284-0.706-2.586-0.93-3.897c3.852,0.39,7.39-1.091,10.822-2.759c0.627-0.305,0.079-1.237-0.546-0.933   c-3.269,1.589-6.735,3.102-10.443,2.595c-0.545-4.065-0.288-8.209,0.636-12.238c1.42-6.19,4.393-12.196,4.489-18.63   c0.02-1.324-0.146-2.649-0.45-3.936c-0.037-0.157-0.123-0.26-0.228-0.321c0.715-1.011,1.553-2.113,2.611-2.681   c-0.025,0.187-0.057,0.374-0.103,0.56c-0.168,0.677,0.874,0.964,1.042,0.287c0.137-0.552,0.182-1.105,0.219-1.671   c0.023-0.361-0.362-0.601-0.684-0.521c-2.882,0.716-4.321,4.266-6.131,6.299c-1.936,2.175-4.913,5.889-8.208,4.724   C9.155,32.016,7.682,30.68,6.732,29.3c-0.975-1.417-0.673-2.939-0.107-4.457c1.015-2.723,3.32-5.497,2.593-8.568   c1.179-0.662,1.971-2.446,2.646-3.469c0.611-0.926,1.249-1.835,2.006-2.65c0.88-0.947,2.003-1.394,3.222-1.761   c2.791-0.841,5.869-0.755,8.711-0.246c2.554,0.457,5.044,1.318,6.856,3.247c3.418,3.638,3.271,9.798,2.347,14.347   c-0.664,3.27-1.902,6.395-2.695,9.633c-0.483,1.97-0.806,4.054-0.213,6.035c0.599,2.001,2.157,3.656,3.583,5.11   c1.985,2.023,4.557,3.399,7.038,4.708c2.355,1.243,4.637,2.595,6.959,3.897c2.278,1.278,4.571,2.528,6.764,3.949   c2.195,1.423,4.33,3.063,5.934,5.151c0.366,0.477,0.603,1.182,1.164,1.445c0.628,0.294,1.268,0.562,1.911,0.822   c2.145,0.867,4.371,1.549,6.668,1.851c2.162,0.284,4.454-0.105,6.515-0.769c4.156-1.339,7.276-4.493,8.963-8.471   c1.919-4.526,1.894-9.588,1.202-14.375c-0.718-4.968-2.362-9.983-5.46-13.989c-2.757-3.564-6.361-5.866-10.73-6.646   c1.318-0.967,3.963-0.258,5.31,0.071c2.878,0.703,5.28,2.838,7.249,4.944c4.241,4.536,7.226,10.279,8.339,16.39   C94.534,51.145,93.724,57.007,91.56,62.291z"></path><path fill="#f3f3f3" d="M26.411,45.4c-1.032-0.373-2.192-0.518-2.673,0.668c-0.302,0.744-0.035,1.579-0.055,2.368   c-0.515-0.515-0.672-1.53-1.268-2.024c-0.416-0.344-1.022-0.075-0.903,0.476c0.115,0.538-0.034,0.931-0.312,1.267   c-1.402-2.069,1.92-4.361,4.044-4.059c0.682,0.097,0.975-0.895,0.287-0.993c-3.306-0.47-7.784,3.173-4.752,6.325   c0.209,0.217,0.553,0.199,0.764,0c0.38-0.359,0.675-0.736,0.86-1.148c0.304,0.671,0.548,1.322,1.547,1.497   c0.305,0.054,0.561-0.079,0.665-0.378c0.231-0.667,0.126-1.402,0.093-2.092c-0.015-0.322-0.017-0.64,0.072-0.952   c0.125-0.438,1.109,0.003,1.343,0.087C26.781,46.681,27.061,45.636,26.411,45.4z"></path><ellipse transform="matrix(0.1509 -0.9885 0.9885 0.1509 -0.1092 35.2671)" fill="#f3f3f3" cx="20.475" cy="17.697" rx="0.927" ry="0.861"></ellipse><ellipse transform="matrix(0.3834 -0.9236 0.9236 0.3834 -6.7273 21.6856)" fill="#f3f3f3" cx="12.878" cy="15.881" rx="0.729" ry="0.677"></ellipse></g></svg></span></div>
+{{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+
+</body>
+</html>

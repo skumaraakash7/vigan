@@ -1,0 +1,300 @@
+
+{%- assign item = settings -%}
+{%- assign item_sidebar = item.sidebar -%}
+{%- capture flip_sidebar -%}{% if item_sidebar contains "rightColumn" %} flex-sm-row-reverse{% endif %}{%- endcapture -%}
+{%- assign pagination_limit_const = settings.pagination_limit | times: 1 -%}
+
+<div class="container-indent">
+  <div class="container{% if item_sidebar contains "_wide" %}-fluid-custom container-fluid-custom-mobile-padding{% endif %}">
+    <div class="row{{ flip_sidebar }}">
+
+      <div class="col-md-3 d-none d-md-block">
+        {%- include "collection-sidebar-collections" -%}
+      </div>
+
+      {% comment %}{%- unless item_sidebar contains "_disable_" -%}{%- include "collection-page-sidebar" -%}{%- endunless -%} {% endcomment %}
+        
+      <div class="{% if item_sidebar contains "hidden_" %}col-md-9{% else %}col-md-9 col-lg-9 col-xl-9{% endif %}">
+        {%- if collection.description != '' and settings.show_collection_description -%}
+        <div class="content-indent">
+          <div class="row tt-layout-promo-box">
+            {{ collection.description }}
+          </div>
+        </div>{%- endif -%}
+        
+        <div class="content-indent container-fluid-custom-mobile-padding-02" data-col-count="{{collection.products_count}}">
+
+          {%- paginate collection.products by current_pagination_limit -%}
+
+          <div class="v-collection-top-bar-mobile d-flex d-md-none">
+            <div class="v-collection-back-button">
+              
+<!--               <a href="{{ collection.url }}">
+                <svg id="Layer" enable-background="new 0 0 64 64" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>
+                {{ collection.title }}
+              </a> -->
+              
+              
+<!--               Goback collection title -->
+              {%- for parent in linklists[links].links -%}
+              	{%- if parent.active -%}
+              
+<!--                   <a href="{{ parent.url }}">
+                    {{ parent.title }}
+                  </a> -->
+              
+              	{%- else -%}
+              
+                  {%- if parent.links != blank -%}
+              
+              		{%- for child in parent.links -%}
+              		  {%- if child.active -%}
+              
+                      <a href="{{ parent.url }}">
+                        <svg id="Layer" enable-background="new 0 0 64 64" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>
+                        {{ parent.title }}
+                      </a>
+              
+              		  {%- else -%}
+              
+                        {%- if child.links != blank -%}
+              
+              			{%- for grandchild in child.links -%}
+                          {%- if grandchild.active -%}
+
+                          <a href="{{ child.url }}">
+                            <svg id="Layer" enable-background="new 0 0 64 64" height="512" viewBox="0 0 64 64" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z"/></svg>
+                            {{ child.title }}
+                          </a>
+
+                          {%- endif -%}
+              			{%- endfor -%}
+              
+                        {%- endif -%}
+              
+              		  {%- endif -%}
+              		{%- endfor -%}
+              
+                  {% endif %}
+              
+              	{%- endif -%}
+              {%- endfor -%}
+<!--          End     Goback collection title -->
+              
+              <a href="javascript:void(0);" class="col-title">{{ collection.title }}</a>
+              
+            </div>
+            <div class="v-collection-filter-toggle">
+              <a href="javascript:void(0);" class="js-filter-toggle">Filter</a>
+            </div>
+          </div>
+
+          <div class="v-filter-option tt-filters-options{% if item_sidebar contains "hidden_closed" %} desctop-no-sidebar{% endif %}">
+
+            {%- include "collection-page-toolbar" -%}
+
+          </div>
+
+          <div class="v-collection-list-slider-wrapper d-block d-md-none">
+            <div class="v-collection-list-slider" data-mcs-theme="dark">
+              
+<!--               Collection Badges -->
+              {% assign temp_parent = 0 %}
+              {% assign temp_child = 0 %}
+              {% assign temp_grandchild = 0 %}
+              
+              {%- for parent in linklists[links].links -%}
+              
+                {% if parent.active %}
+                  {% assign temp_parent = temp_parent | plus:1 %}
+              	  {% assign parent_handle = parent.handle %}
+                {% else %}
+              	  {% assign temp_parent = 0 %}
+                {% endif %}
+              
+              
+                {% capture parent_items %}
+                  {% if temp_parent == 1 %}
+              
+                    {%- for child in linklists[parent_handle].links -%}
+                    <div class="slider-item">
+                      <a href="{{ child.url }}"><span>{{ child.title }}</span></a>
+                    </div>
+                    {% endfor %}
+              
+                  {% endif %}
+                {% endcapture %}
+              
+              	{{parent_items}}
+              
+                {%- for child in parent.links -%}
+              		
+                  {% if child.active %}
+                  	{% assign temp_child = temp_child | plus:1 %}
+              		{% assign child_handle = child.handle %}
+              	  {% else %}
+              			{% assign temp_child = 0 %}
+                  {% endif %}
+
+              		{% capture child_items %}
+                      {% if temp_child == 1 %}
+              
+                        {%- for f_child in linklists[parent_handle].links -%}
+                          <div class="slider-item">
+                            <a href="{{ f_child.url }}"><span>{{ f_child.title }}</span></a>
+                          </div>
+                        {%- endfor -%}
+              
+              			{%- for grandchild in linklists[child_handle].links -%}
+                          <div class="slider-item">
+                            <a href="{{ grandchild.url }}"><span>{{ grandchild.title }}</span></a>
+                          </div>
+              			{%- endfor -%}
+              
+                      {% endif %}
+              		{% endcapture %}
+              
+              		{{child_items}}
+              
+                    {%- for grandchild in child.links -%}
+              
+                      {% if grandchild.active %}
+                      	{% assign temp_grandchild = temp_grandchild | plus:1 %}
+              			{% assign child_handle = child.handle %}
+              		  {% else %}
+              			{% assign temp_grandchild = 0 %}
+                      {% endif %}
+
+              		{% capture grandchild_items %}
+                      {% if temp_grandchild == 1 %}
+              			{%- for grandchild in linklists[child_handle].links -%}
+                          <div class="slider-item">
+                            <a href="{{ grandchild.url }}"><span>{{ grandchild.title }}</span></a>
+                          </div>
+              			{%- endfor -%}
+                      {% endif %}
+              		{% endcapture %}
+              
+              		{{ grandchild_items }}
+              
+                    {%- endfor -%}
+              
+                {%- endfor -%}
+              
+              {%- endfor -%}
+<!--       End  Collection Badges -->
+              
+              {% comment %}
+              {% for tag in collection.tags %}
+              <div class="slider-item">
+                <a href="/collections/all/{{ tag | handleize }}"><span>{{ tag }}</span></a>
+              </div>
+              {% endfor %}
+             
+              
+              {%- for parent in linklists[links].links -%}
+                {%- if parent.links != blank -%}
+                  {%- for child in parent.links -%}
+              
+              		{% if child.links != blank and child.active %}
+              
+                      {% for grandchild in child.links %}
+                        <div class="slider-item {% if child.active %} sidenav-label-active{% endif %}" style="{% if child.active %}display:block;{% else %}display:none;{% endif %}">
+                          <a href="{{ grandchild.url }}"><span>{{ grandchild.title }}</span></a>
+                        </div>
+                      {% endfor %}
+              
+              		{% else %}
+              
+                    <div class="slider-item {% if parent.active %} sidenav-label-active{% endif %}" style="{% if parent.active %}display:block;{% else %}display:none;{% endif %}">
+                      <a href="{{ child.url }}"><span>{{ child.title }}</span></a>
+                    </div>
+              
+              		{% endif %}
+              
+                  {%- endfor -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {% endcomment %}
+              
+<!--               <div class="slider-item">
+                <a href="#"><span>Tofu</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Temphe</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Seitan</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Fleischersatz</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Aufschnitt</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Bratlinge</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Burger</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Steakes & Schnitzel</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Hackfleisch & Geschnetzeltes</span></a>
+              </div>
+              <div class="slider-item">
+                <a href="#"><span>Wurst</span></a>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="v-product-list tt-product-listing row{% if collection.products.size == 0 %} flex-center-message{% endif %}{% if settings.products_in_one_row %} tt-col-one only-row{% endif %}" data-onerow="{{ settings.use_one_row_in_theme }}">
+            {%- if collection.products.size > 0 -%}
+            {%- for product in collection.products -%}
+                {% if product.available and product.template_suffix != 'hidden' %}
+                    <div class="col-6 col-lg-3 col-md-{% if item.products_in_column == '5' %}4{% else %}6{% endif %}{% if item.products_in_column == '5' %} col-5-inrow-lg{% endif %} tt-col-item">
+                        {%- include "product-grid-item" -%}
+                    </div>
+                {% endif %}
+            {%- endfor -%}
+            {%- for product in collection.products -%}
+                {% if product.available == false and product.template_suffix != 'hidden' %}
+                    <div class="col-6 col-lg-3 col-md-{% if item.products_in_column == '5' %}4{% else %}6{% endif %}{% if item.products_in_column == '5' %} col-5-inrow-lg{% endif %} tt-col-item">
+                        {%- include "product-grid-item" -%}
+                    </div>
+                {% endif %}
+            {%- endfor -%}
+            {%- else -%}
+            <div class="tt-empty-search">
+              <span class="tt-icon icon-g-84"></span>
+              <h2 class="tt-title">{{ 'collections.general.empty' | t }}</h2>
+              <p>{{ 'collections.general.sort_result' | t }}</p>
+            </div>
+            {%- endif -%}
+          </div>
+
+          <div class="text-center tt_product_showmore infinitybutton{% if settings.enable_infinite_scroll == 'autoscroll' %} autoscroll_yes{% endif %}{% if paginate.next == empty? and paginate.previous == empty? %} hide{% endif %}">
+            
+            {%- if paginate.next -%}
+            <div class="show-more">
+              <a href="{{ paginate.next.url }}" class="btn btn-border ttshowmorestyle{% if settings.enable_infinite_scroll == 'autoscroll' %} autoscroll hide{% endif %}">{{ 'collections.toolbar.button_show_more' | t }}</a>
+            </div>
+            {%- else -%}
+            {%- if paginate.previous and settings.showbuttonnomore -%}
+            <div class="show-more tt_item_all_js" >
+              <a href="#" class="btn btn-border01 ttshowmorestyle disable">{{ 'collections.toolbar.button_show_more_disabled' | t }}</a>
+            </div>
+            {%- endif -%}
+            {%- endif -%}
+
+          </div>
+          
+          {%- endpaginate -%}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

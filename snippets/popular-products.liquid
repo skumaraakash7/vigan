@@ -1,0 +1,17 @@
+<div class="shopify-section">
+<div class="container-indent">
+<div class="container container-fluid-custom-mobile-padding popular-products">
+  <div class="tt-block-title">
+    <h2 class="colored-title popular-products-title">{{ colored_title }}</h2>
+    <h2 class="second-title">{{ second_title }}</h2>
+  </div>
+  <div class="v-product-list tt-carousel-products row arrow-location-right-top tt-alignment-img tt-layout-product-item">
+    {%- for product in my_collection.products limit: 12 -%}
+      {% if product.available and product.template_suffix != 'hidden' %}
+        <div class="col-2 col-md-4 col-lg-3">{%- include 'product-grid-item' -%}</div>
+      {% endif %}
+    {%- endfor -%}
+  </div>
+</div>
+</div>
+</div>

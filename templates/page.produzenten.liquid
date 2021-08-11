@@ -1,0 +1,61 @@
+<div class="container-indent">
+    <div class="container container-fluid-custom-mobile-padding produzenten">
+        {{ page.content }}
+        {%- form 'contact' -%}
+            <div class="form-group">
+                <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" class="form-control" id="inputName" placeholder="Vorname & Name*">
+            </div>
+            <div class="form-group">
+                <input type="email" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="form-control" id="inputEmail" placeholder="E-Mail-Adresse*">
+            </div>
+            <div class="form-group">
+                <input type="text" name="contact[company]" class="form-control" id="inputCompany" placeholder="Firmenname">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" class="form-control" id="inputSubject" placeholder="Telefonnummer">
+            </div>
+            <div class="form-group">
+                <input type="text" name="contact[website]" class="form-control" id="inputWebsite" placeholder="Webseite">
+            </div>
+            <div class="form-group">
+                <textarea name="contact[body]" class="form-control" rows="8" placeholder="Sollten wir sonst noch etwas wissen? Dann schreibe hier deine Nachricht an uns." id="textareaMessage">{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn ttbtnmainstyle">{{ 'contact.form.send' | t }}</button>
+            </div>
+        {%- endform -%}
+    </div>
+</div>
+</div>
+
+<style>
+    .produzenten img {
+        float: right;
+        margin: 15px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        align-self: center;
+    }
+    @media only screen and (max-width: 790px) {
+        .produzenten img {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .produzenten h3 {
+        padding-bottom: 6px !important;
+    }
+    .produzenten p {
+        margin-top: 0px !important;
+        margin-bottom: 6px !important;
+    }
+    .produzenten li p {
+        margin: 0 !important;
+    }
+    .produzenten .form-group input, .produzenten .form-group textarea{
+        border-radius: 15px;
+    }
+</style>

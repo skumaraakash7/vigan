@@ -1,0 +1,103 @@
+<div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-block-title">
+        <h2 class="tt-title colored-title">ENTDECKE</h2>
+        <div class="tt-description second-title">VIGAN PRODUKTE</div>
+    </div>
+    <ul class="vigan-products-wrapper">
+    {% for block in section.blocks %}
+        <li class="vigan-product-item">
+            <a href="{{ block.settings.link }}">
+                <img src="{{ block.settings.image | img_url: 'master' }}">
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<style>
+    #shopify-section-{{ section.id }} .container {
+        margin-top: 40px;
+    }
+    #shopify-section-{{ section.id }} .tt-block-title {
+        padding-bottom: 20px !important;
+    }
+    #shopify-section-{{ section.id }} .colored-title {
+        color: #54eace !important;
+    }
+    #shopify-section-{{ section.id }} .vigan-products-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        flex-direction: row;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    #shopify-section-{{ section.id }} .vigan-product-item {
+        height: 200px;
+        width: 49%;
+        margin-top: 20px;
+    }
+    #shopify-section-{{ section.id }} a {
+        width: 100%;
+        height: 100%;
+    }
+    #shopify-section-{{ section.id }} img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+    @media only screen and (max-width: 790px) {
+        #shopify-section-{{ section.id }} .vigan-products-wrapper {
+            display: block;
+        }
+        #shopify-section-{{ section.id }} .vigan-product-item {
+            width: 100%;
+        }
+    }
+    @media only screen and (max-width: 400px) {
+        #shopify-section-{{ section.id }} .vigan-product-item {
+            height: 150px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Vigan Produkte",
+    "settings": [
+
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "Produkt",
+            "settings": [
+                {
+                    "id": "image",
+                    "type": "image_picker",
+                    "label": "Produktbild"
+                },
+                {
+                    "id": "link",
+                    "type": "url",
+                    "label": "Produktlink"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Vigan Produkte",
+            "category": "vigan"
+        }
+    ]
+}
+{% endschema %}
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

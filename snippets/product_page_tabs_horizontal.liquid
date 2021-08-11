@@ -1,0 +1,157 @@
+{% if product.metafields.global.zutaten != blank or product.metafields.global.naehrwertetabelle != blank or product.metafields.global.besonderheiten_allergene != blank %}
+  {% assign nutrition_tab = true %}
+{% else %}
+  {% assign nutrition_tab = false %}
+{% endif %}
+
+{% if nutrition_tab == false and product.description == blank %}
+  {% assign hide_tabs = true %}
+{% else %}
+  {% assign hide_tabs = false %}
+{% endif %}
+
+{%- capture html_tabs_nav -%}  
+{%- assign selected = true -%}
+{%- for block in section.blocks -%}
+{%- assign b_i = block.settings -%}
+{%- case block.type -%}
+  {%- when 'tab_desc' -%}
+	<li class="nav-item">
+      <a class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+  {%- when 'tab_same_html' -%}
+	<li class="nav-item">
+      <a class="nav-link{% if fselected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+  {%- when 'tab_unique' -%}
+	{%- if product_meta[b_i.key] != blank -%}
+	<li class="nav-item">
+      <a class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+	{%- endif -%}
+  {%- when 'tab_review' -%}
+	<li class="nav-item">
+      <a id="tab_review" class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+{%- endcase -%}
+{%- endfor -%}
+
+{% if product.description != blank %}
+  <li class="nav-item">
+    <a class="nav-link show active" data-toggle="tab" href="#tt-tab-description" role="tab">BESCHREIBUNG</a>
+  </li>
+{% endif %}
+
+{% if nutrition_tab %}
+<li class="nav-item">
+  <a class="nav-link{% if product.description == blank %} show active{% endif %}" data-toggle="tab" href="#tt-tab-nutrition" role="tab">
+    {% if product.metafields.global.naehrwertetabelle == blank %}
+        &#129367; ZUTATEN & MEHR
+    {% else %}
+        &#129367; ZUTATEN, NÄHRWERTE & MEHR
+    {% endif %}
+  </a>
+</li>
+{% endif %}
+
+{%- endcapture -%}
+
+{%- capture html_tabs -%}
+{%- assign selected = true -%}
+{%- for block in section.blocks -%}
+{%- assign b_i = block.settings -%}
+{%- case block.type -%}
+  {%- when 'tab_desc' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ product.description }}
+	</div>
+	{%- assign selected = false -%}
+  {%- when 'tab_same_html' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ b_i.html }}
+	</div>
+	{%- assign selected = false -%}
+  {%- when 'tab_unique' -%}
+	{%- if product_meta[b_i.key] != blank -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ product_meta[b_i.key] }}
+	</div>
+	{%- assign selected = false -%}
+	{%- endif -%}
+  {%- when 'tab_review' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {%- if settings.selectedreviewaapp == 'alireviewapp' -%}
+      {%- unless item.showalireviewinrow -%}
+      <div id="shopify-ali-review" product-id="{{ product.id }}"> {{ shop.metafields.review_collector.review_code }}</div>
+      {%- endunless -%}
+      {%- else %}
+      <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+      {%- endif -%}
+	</div>
+	{%- assign selected = false -%}
+{%- endcase -%}
+{%- endfor -%}
+
+{% if product.description != blank %}
+<div class="tab-pane active fade" id="tt-tab-description" role="tabpanel">
+  {{ product.description }}
+</div>
+{% endif %}
+
+{% if nutrition_tab %}
+<div class="tab-pane{% if product.description == blank %} active fade{% endif %}" id="tt-tab-nutrition" role="tabpanel">
+  {% if product.metafields.global.zutaten != blank %}
+    <h2>Zutaten</h2>
+    <div class="zutaten-biocode">
+        <p>{{ product.metafields.global.zutaten }}</p>
+        {% if product.metafields.global.biocode != blank %}
+            <p><b>Bio Code:</b> {{ product.metafields.global.biocode }}</p>
+        {% endif %}
+    </div>
+  {% endif %}
+  {% if product.metafields.global.naehrwertetabelle != blank %}
+    <h2>Nährwertangaben</h2>
+      <div style="font-size:16px;">
+    {{ product.metafields.global.naehrwertetabelle }}
+      </div>
+  {% endif %}
+  {% if product.metafields.global.besonderheiten_allergene != blank %}
+    <h2>Allergene & Hinweise</h2>
+    {{ product.metafields.global.besonderheiten_allergene }}
+  {% endif %}
+</div>
+{% endif %}
+
+{%- endcapture -%}
+
+{%- if html_tabs != '' -%}
+{% unless hide_tabs %}
+<div class="container-indent1 prpage-tabs">
+  <div class="container container-fluid-custom-mobile-padding">
+    <ul class="nav nav-tabs tt-tabs-default tt-tabs-left" role="tablist">
+      {{ html_tabs_nav }}
+    </ul>
+    <div class="tab-content">{{ html_tabs }}</div>
+  </div>
+</div>
+{% endunless %}
+{%- endif -%}
+
+<style>
+  .tab-pane h2 {
+    padding-bottom: 5px !important;
+  }
+  .zutaten-biocode {
+      margin-bottom: 15px;
+  }
+  .zutaten-biocode p {
+      margin-top: 0;
+  }
+  .tab-content {
+      font-size: 16px !important;
+  }
+</style>

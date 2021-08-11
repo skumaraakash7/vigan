@@ -1,0 +1,26 @@
+{%- capture url_images_size -%}{%- if external_size != empty? -%}{{ external_size }}{%- else -%}600x{%- endif -%}{%- endcapture -%}
+
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = article.image -%}
+
+    <div data-template="{{template}}" class="respimgsize tt-product product-parent options-js  {% if settings.center_product_information %} thumbprod-center{% endif %}">
+        <div class="tt-image-box">
+            <div class="v-product-img">
+                <a class="tt-img-parent" href="{{ article.url }}">
+                    <span class="tt-img">
+          <img class="lazyload"
+               data-mainimageratio = '{{ article.image.aspect_ratio }}'
+               data-mainimage="{{ article.image | article_img_url: '100x100' | replace: '100x100', 'respimgsize' }}"
+               alt="{{ article.image.alt | escape }}"/>
+        </span>
+                </a>
+            </div>
+        </div>
+        <div class="tt-description">
+            <h2 class="tt-title prod-thumb-title-color" style="text-align: center">
+                <a href="{{ article.url }}">
+                        {{ article.title }}
+                </a>
+            </h2>
+        </div>
+    </div>

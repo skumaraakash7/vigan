@@ -1,0 +1,169 @@
+<div class="video-container">
+    <video autoplay loop muted playsinline class="section-video">
+        <source src="{{ section.settings.video }}" type="video/mp4">
+    </video>
+    {% if section.settings.activate_overlay %}
+        <div class="video-overlay">
+            {{ section.settings.overlay_html }}
+            {% if section.settings.activate_button %}
+                <a href="{{ section.settings.button_url }}">{{ section.settings.button_text }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    #shopify-section-{{ section.id }} .video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        max-height: 32vw;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: {{ section.settings.margintop }}px;
+        margin-bottom: {{ section.settings.marginbottom }}px;
+    }
+    #shopify-section-{{ section.id }} .section-video {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    #shopify-section-{{ section.id }} .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        width: 100%;
+        height: 100%;
+        padding-top: 90px;
+        padding-left: 70px;
+        background-color: rgba(0,0,0,.2);
+        line-height: 0;
+    }
+    #shopify-section-{{ section.id }} .video-overlay p {
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-size: 20px !important;
+    }
+    #shopify-section-{{ section.id }} .video-overlay h1, #shopify-section-{{ section.id }} .video-overlay h2, #shopify-section-{{ section.id }} .video-overlay h3 {
+        color: white;
+        margin: -5px 0;
+        padding: 0;
+        font-weight: 800 !important;
+    }
+    #shopify-section-{{ section.id }} .video-overlay a {
+        width: 250px;
+        height: 50px;
+        background-color: white;
+        border-radius: 15px;
+        border: 2px solid #fe0062;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 18px !important;
+        font-weight: bold;
+        color: #fe0062;
+    }
+    #shopify-section-{{ section.id }} .video-overlay a:hover {
+        background-color: #fe0062;
+        border-color: white;
+        color: white;
+    }
+    @media only screen and (max-width: 850px) {
+        #shopify-section-{{ section.id }} .video-container {
+            max-height: 100vh;
+            height: 300px;
+            width: auto;
+        }
+        #shopify-section-{{ section.id }} .section-video {
+            width: auto;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #shopify-section-{{ section.id }} .video-overlay a {
+            font-size: 14px !important;
+            width: 180px;
+            height: 40px;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        #shopify-section-{{ section.id }} .video-overlay p {
+            font-size: 14px !important;
+        }
+        #shopify-section-{{ section.id }} .video-overlay {
+            padding-top: 50px;
+            padding-left: 40px;
+        }
+    }
+</style>
+
+
+{% schema %}
+{
+    "name": "Video",
+    "settings": [
+        {
+            "type": "text",
+            "id": "video",
+            "label": "Video URL"
+        },
+        {
+            "type": "text",
+            "id": "margintop",
+            "label": "Abstand oben (Pixel)",
+            "default": "0"
+        },
+        {
+            "type": "text",
+            "id": "marginbottom",
+            "label": "Abstand unten (Pixel)",
+            "default": "0"
+        },
+        {
+            "type": "checkbox",
+            "id": "activate_overlay",
+            "label": "Overlay aktivieren",
+            "default": true
+        },
+        {
+            "type": "textarea",
+            "id": "overlay_html",
+            "label": "Overlay HTML"
+        },
+        {
+            "type": "checkbox",
+            "id": "activate_button",
+            "label": "Button anzeigen"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Video",
+            "category": "vigan"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

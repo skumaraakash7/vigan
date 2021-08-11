@@ -1,0 +1,58 @@
+<div class="container-indent">
+    <div class="container container-fluid-custom-mobile-padding deine-meinung">
+        {{ page.content }}
+        {% comment %}
+        {%- form 'contact' -%}
+            <div class="form-group">
+                <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" class="form-control" id="inputName" placeholder="Vorname & Name*">
+            </div>
+            <div class="form-group">
+                <input type="email" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="form-control" id="inputEmail" placeholder="E-Mail-Adresse*">
+            </div>
+            <div class="form-group">
+                <textarea name="contact[body]" class="form-control" rows="8" placeholder="Stelle uns hier deine Frage*" id="textareaMessage">{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn ttbtnmainstyle">{{ 'contact.form.send' | t }}</button>
+            </div>
+        {%- endform -%}
+        {% endcomment %}
+        <div class="reamaze-contact-form">
+            <div data-reamaze-embed="contact" data-reamaze-embed-disable-subject="true" data-reamaze-embed-subject="Sag uns deine Meinung" data-reamaze-embed-form-id="26676"></div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<style>
+    .deine-meinung img {
+        float: right;
+        margin: 15px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        align-self: center;
+    }
+    @media only screen and (max-width: 790px) {
+        .deine-meinung img {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .deine-meinung h3 {
+        padding-bottom: 6px !important;
+    }
+    .deine-meinung p {
+        margin-top: 0px !important;
+        margin-bottom: 6px !important;
+    }
+    .deine-meinung li p {
+        margin: 0 !important;
+    }
+    .deine-meinung .form-group input, .deine-meinung .form-group textarea{
+        border-radius: 15px;
+    }
+</style>

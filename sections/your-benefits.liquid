@@ -1,0 +1,74 @@
+<div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-block-title">
+        <h2 class="tt-title colored-title">ENTDECKE</h2>
+        <div class="tt-description second-title">DEINE VORTEILE&#128521;</div>
+    </div>
+    <div class="benefits-wrapper">
+        <div class="benefits-item">
+            <img src="{{ 'recycelbarer-kuehlversand.png' | file_img_url }}">
+            <p>Recyclebarer & gratis Kühlversand</p>
+        </div>
+        <div class="benefits-item">
+            <img src="{{ 'stern.png' | file_img_url }}">
+            <p>Top Kundenbewertung</p>
+        </div>
+        <div class="benefits-item">
+            <img src="{{ 'veganes-sortiment.png' | file_img_url }}">
+            <p>100% veganes Sortiment</p>
+        </div>
+        <div class="benefits-item">
+            <img src="{{ 'versand.png' | file_img_url }}">
+            <p>Ökologischer & Nachhaltiger Versand</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    #shopify-section-{{ section.id }} .container {
+        margin-top: 40px;
+    }
+    #shopify-section-{{ section.id }} .benefits-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+    #shopify-section-{{ section.id }} .benefits-item {
+        width: 20%;
+        height: 160px;
+        background-color: #fafafa;
+        border-radius: 15px;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        padding: 20px 10px 10px;
+    }
+    #shopify-section-{{ section.id }} .benefits-item img {
+        width: 30%;
+    }
+    #shopify-section-{{ section.id }} .benefits-item p {
+        font-weight: bolder;
+        font-size: 14px !important;
+    }
+    @media only screen and (max-width: 790px) {
+        #shopify-section-{{ section.id }} .benefits-wrapper {
+            flex-wrap: wrap;
+        }
+        #shopify-section-{{ section.id }} .benefits-item {
+            width: 45%;
+            margin-top: 20px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Deine Vorteile",
+    "presets": [
+        {
+            "name": "Deine Vorteile",
+            "category": "vigan"
+        }
+    ]
+}
+{% endschema %}

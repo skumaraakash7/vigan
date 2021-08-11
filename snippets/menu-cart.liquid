@@ -1,0 +1,138 @@
+{%- unless settings.catalogue_mode -%}
+{%- if template != "cart" -%}
+
+<!-- tt-cart -->
+<div class="tt-desctop-parent-cart tt-parent-box">
+  <div class="tt-cart tt-dropdown-obj">
+    <button class="tt-dropdown-toggle{% if settings.use_svg_cart_header %} header-icon-with-text{% endif %}"
+            data-tooltip="{{ 'general.tooltip_texts.header_cart' | t }}"
+            data-tposition="bottom"
+            >
+      {% if settings.header_design == "header_type_5" %}
+
+      <div class="tt-icon-box-header">
+        {% if settings.use_svg_cart_header %}
+        <span class="tt-icon">
+          {{ settings.svg_cart_header }}
+        </span>
+        {% else %}
+        <span class="cart-icon"><img src="{{ 'cart-icon.png' | asset_url }}" alt="cart" ></span>
+        {% endif %}
+        <span class="tt-badge-cart{% if cart.item_count == 0 %} hide{% endif %}">{{ cart.item_count }}</span>
+      </div>
+      {% if settings.header_design == "header_type_5" and item.cart_icon_text != "" %}
+      <span class="tt-dropdown-toggle__text">{{ item.cart_icon_text }}</span>
+      {% endif %}
+
+      {% else %}
+
+      {% if settings.use_svg_cart_header %}
+      <span class="tt-icon">
+        {{ settings.svg_cart_header }}
+      </span>
+      {% else %}
+      <span class="cart-icon"><img src="{{ 'cart-icon.png' | asset_url }}" alt="cart" ></span>
+      {% endif %}
+      {% if item.ca_text != '' %}<span class="tt-text">
+      {{ item.ca_text }}
+      </span>{% endif %}
+      <span class="tt-badge-cart{% if cart.item_count == 0 %} hide{% endif %}">{{ cart.item_count }}</span>
+      
+      {% endif %}      
+    </button>
+
+    <div class="tt-dropdown-menu v-cart-drawer" id="v-cart-drawer-main">
+      <div class="tt-dropdown-inner">
+        <div class="tt-cart-layout">
+          <div class="tt-mobile-add">
+            <button class="tt-close">
+              <span>{{ 'cart.header.close' | t }}</span>
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg>
+              <h6 class="tt-title">{{ 'cart.header.title' | t }}</h6>
+            </button>
+          </div>
+          <div class="tt-cart-content">
+            <div class="v-cart-body">
+              <div class="tt-cart-empty{% if cart.item_count > 0 %} hide{% endif %}">
+                <span class="cart-icon"><img src="{{ 'cart-icon.png' | asset_url }}" alt="cart" ></span>
+                <p>{{ 'cart.header.empty_cart' | t }}</p>
+              </div>
+              
+              <div class="tt-cart-box{% if cart.item_count == 0 %} hide{% endif %}">
+                <div class="v-cart-success-note">
+                  {% include 'green-check-svg.liquid' %}
+                  <b>Gute Wahl! </b> Hier sind deine Produkte:
+                </div>
+                {% include 'cart-range-slider' %}
+                <div class="tt-cart-list">
+                  {%- for item in cart.items -%}{%- include "menu-cart-item" length: forloop.index -%}{%- endfor -%}
+                </div>
+
+              </div>
+            </div>
+            <!--<div class="v-margin-top"></div>-->
+            <div class="v-cart-footer">
+              <div class="tt-cart-total-row">
+                <div class="tt-cart-row-left">
+                  <div class="tt-cart-total-title">{{ 'cart.header.total' | t }}</div>
+                  <span class="v-vat-shipping-title-new">Versandkosten:</span>
+                  <span class="v-vat-shipping-title">inkl. MwSt.</span>
+                </div>
+                <div class="tt-cart-row-right">
+                  <div class="tt-cart-total-price">{{ cart.total_price | money }}</div>
+                  <span class="v-vat-shipping-amount-new">GRATIS</span>
+                </div>
+              </div>
+              {% if settings.terms_cond_checkbox_show %}
+              <div class="checkbox-group m-term-conditions-checkbox term-conditions-checkbox-js">
+                <input type="checkbox" id="cart-term-conditions-checkbox" value="1">
+                <label for="cart-term-conditions-checkbox">
+                  <span class="check"></span>
+                  <span class="box"></span>
+                  {{ settings.terms_cond_checkbox_text }}
+                </label>
+              </div>
+              {% endif %}
+              <div class="tt-cart-btn">
+                <div class="tt-item">
+                  <a href="/checkout" data-js-checkout class="btn{% if settings.terms_cond_checkbox_show %} disabled{% endif %}">{{ 'cart.header.checkout' | t }} <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" class="svg-inline--fa fa-angle-left fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path></svg></a>
+                </div>
+                <!-- <div class="tt-item">
+                  <a href="/cart" class="btn-link-02">{{ 'cart.header.view_cart' | t }}</a>
+                </div> -->
+
+                <ul class="v-cart-payment-list">
+                  <li><img src="{{'twint.png' | file_img_url }}" class="img-fluid" alt="" ></li>
+                  <li><img src="{{'rechnung.png' | file_img_url }}" class="img-fluid" alt="" ></li>
+                  <li><img src="{{'mastercard.png' | file_img_url }}" class="img-fluid" alt="" ></li>
+                  <li><img src="{{'visa.png' | file_img_url }}" class="img-fluid" alt="" ></li>
+                  <li><img src="{{'klarna.png' | asset_url }}" class="img-fluid" alt="" ></li>
+                  <li><img src="{{'sofort.png' | asset_url }}" class="img-fluid" alt="" ></li>
+                  {% comment %}
+                  <li><img src="{{'paypal.png' | file_img_url }}" class="img-fluid" alt="" ></li>
+                  {% endcomment %}
+                </ul>
+                {% comment %}
+                <div class="v-cart-bottom-detail">
+                  <img src="{{'alarm.png' | asset_url }}" class="img-fluid" alt="" >
+                  <p>Produkte in deinem Warenkorb sind nur kurz reserviert. Gehe jetzt
+                    zur Kasse damit du auch sicher alle Produkte schnellstmöglich
+                    zugesendet bekommst!</p>
+                </div>
+                {% endcomment %}
+              </div>
+            </div> 
+          </div>  
+
+        </div>  
+      </div>
+      {%- include "menu-cart-item-empty" -%}
+    </div>  
+  </div>
+</div>
+<!-- /tt-cart --> 
+
+<!-- <div class="v-cart-bg"></div> -->
+
+{%- endif -%}
+{%- endunless -%}

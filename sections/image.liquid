@@ -1,0 +1,211 @@
+{% if section.settings.width_selector == 'boxed' %}
+<div class="container container-fluid-custom-mobile-padding image-wrapper">
+{% endif %}
+    <div class="image-container">
+    {% if section.settings.link != blank and section.settings.activate_overlay != true %}
+    <a href="{{ section.settings.link }}">
+    {% endif %}
+        <img class="section-image" src="{{ section.settings.image | img_url: 'master' }}">
+    {% if section.settings.link != blank %}
+    </a>
+    {% endif %}
+    {% if section.settings.activate_overlay %}
+        <div class="image-overlay">
+            {{ section.settings.overlay_html }}
+            {% if section.settings.activate_button %}
+                <a href="{{ section.settings.button_url }}">{{ section.settings.button_text }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+    </div>
+{% if section.settings.width_selector == 'boxed' %}
+</div>
+{% endif %}
+
+<style>
+    #shopify-section-{{ section.id }} .section-image {
+        max-width: 100%;
+        {% if section.settings.enable_maxheight %}
+            max-height: {{ section.settings.maxheight }}px;
+        {% endif %}
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        {% if section.settings.enable_roundedcorner %}
+            border-radius: {{ section.settings.roundedcorner }}px;
+        {% endif %}
+        margin-top: {{ section.settings.margintop }}px;
+        margin-bottom: {{ section.settings.marginbottom }}px;
+    }
+    #shopify-section-{{ section.id }} .image-container {
+        position: relative;
+    }
+
+    /*------------OVERLAY-----------*/
+    #shopify-section-{{ section.id }} .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        width: 100%;
+        height: 100%;
+        padding-top: 90px;
+        padding-left: 70px;
+        background-color: rgba(0,0,0,.2);
+        line-height: 0;
+        {% if section.settings.enable_roundedcorner %}
+            border-radius: {{ section.settings.roundedcorner }}px;
+        {% endif %}
+    }
+    #shopify-section-{{ section.id }} .image-overlay p {
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-size: 20px !important;
+    }
+    #shopify-section-{{ section.id }} .image-overlay h1, #shopify-section-{{ section.id }} .image-overlay h2, #shopify-section-{{ section.id }} .image-overlay h3 {
+        color: white;
+        margin: -5px 0;
+        padding: 0;
+        font-weight: 800 !important;
+    }
+    #shopify-section-{{ section.id }} .image-overlay a {
+        width: 250px;
+        height: 50px;
+        background-color: white;
+        border-radius: 15px;
+        border: 2px solid #fe0062;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 18px !important;
+        font-weight: bold;
+        color: #fe0062;
+    }
+    #shopify-section-{{ section.id }} .image-overlay a:hover {
+        background-color: #fe0062;
+        border-color: white;
+        color: white;
+    }
+    @media only screen and (max-width: 850px) {
+        #shopify-section-{{ section.id }} .image-overlay a {
+            font-size: 14px !important;
+            width: 180px;
+            height: 40px;
+        }
+    }
+    @media only screen and (max-width: 575px) {
+        #shopify-section-{{ section.id }} .image-overlay p {
+            font-size: 14px !important;
+        }
+        #shopify-section-{{ section.id }} .image-overlay {
+            padding-top: 35px;
+            padding-left: 40px;
+        }
+    }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Bild",
+    "settings": [
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Bild"
+		},
+        {
+            "type": "radio",
+            "id": "width_selector",
+            "label": "Breite",
+            "options": [
+                { "value": "boxed", "label": "Boxed" },
+                { "value": "fullwidth", "label": "Ganze Breite" }
+            ],
+            "default": "fullwidth"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_maxheight",
+            "label": "Maximale Höhe aktivieren",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "maxheight",
+            "label": "Maximale Höhe (Pixel)"
+        },
+        {
+            "type": "text",
+            "id": "margintop",
+            "label": "Abstand oben (Pixel)",
+            "default": "0"
+        },
+        {
+            "type": "text",
+            "id": "marginbottom",
+            "label": "Abstand unten (Pixel)",
+            "default": "0"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_roundedcorner",
+            "label": "Runde Ecken aktivieren",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "roundedcorner",
+            "label": "Runde Ecken (Pixel)"
+        },
+        {
+            "type": "url",
+            "id": "link",
+            "label": "Link (nur wenn Overlay deaktiviert ist)"
+        },
+        {
+            "type": "checkbox",
+            "id": "activate_overlay",
+            "label": "Overlay aktivieren",
+            "default": true
+        },
+        {
+            "type": "textarea",
+            "id": "overlay_html",
+            "label": "Overlay HTML"
+        },
+        {
+            "type": "checkbox",
+            "id": "activate_button",
+            "label": "Button anzeigen"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text"
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+        }
+	],
+	"presets": [
+		{
+			"name": "Bild",
+			"category": "vigan"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,150 @@
+<div class="container">
+    <footer class="for-footer-blocks">
+        <div class="row">
+            <div class="col-md-2 desktop-only mobile-hide">
+                {% if section.settings.logo_image != blank %}
+                    <a href="{{ section.settings.logo_link }}">
+                        <img src="{{ section.settings.logo_image | img_url: '1024x' }}" height="40" alt="{{ section.settings.logo_image.alt }}"/>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    {% assign count_block = 1 %}
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'menu' %}
+                                {% if block.settings.title != blank or block.settings.linklist2 != blank %}
+                                    <div class="col-md-4 col-sm-6 col-xs-6 block-{{count_block}}">
+                                        <div class="tt-footer-box">
+                                            <div class="tt-footer-description">
+                                                {% if block.settings.title != blank %}
+                                                    <h6>{{ block.settings.title }}</h6>
+                                                {% endif %}
+                                                {%- assign _linklist = block.settings.linklist2 -%}
+                                                {%- if _linklist != blank -%}
+                                                    <ul class="tt-list">
+                                                        {%- for link in linklists[_linklist].links -%}
+                                                            <li><a href="{{ link.url }}"{% if settings.footer_main_links_underline_hover %} class="text-decoration-hover"{% endif %}>{{ link.title }}</a></li>
+                                                        {%- endfor -%}
+                                                    </ul>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if count_block == 1 %}
+                                    <div class="col-md-4 col-sm-6 col-xs-6 desktop-hide mobile-only">
+                                        {% if section.settings.logo_image != blank %}
+                                            <a href="{{ section.settings.logo_link }}">
+                                                <img src="{{ section.settings.logo_image | img_url: '1024x' }}" height="40" alt="{{ section.settings.logo_image.alt }}"/>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                {% assign count_block = count_block | plus:1 %}
+                            {% when 'html' %}
+                                {% if block.settings.title != blank or block.settings.ctm-html != blank %}
+                                    <div class="col-md-4 col-sm-6 col-xs-6 block-{{count_block}}">
+                                        <div class="tt-footer-box">
+                                            <div class="tt-footer-description">
+                                                {% if block.settings.title != blank %}
+                                                    <h6>{{ block.settings.title }}</h6>
+                                                {% endif %}
+                                                {{ block.settings.ctm-html }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if count_block == 1 %}
+                                    {% if section.settings.logo_image != blank %}
+                                        <div class="col-md-4 col-sm-6 col-xs-6 desktop-hide mobile-only">
+                                            <div class="tt-footer-box">
+                                                <a href="{{ section.settings.logo_link }}">
+                                                    <img src="{{ section.settings.logo_image | img_url: '1024x' }}" height="40" alt="{{ section.settings.logo_image.alt }}"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% assign count_block = count_block | plus:1 %}
+                        {% endcase %}
+                    {% endfor %}
+                    <div class="col-md-12">
+                        <div class="tt-footer-description footerSocial-items">
+                            <h6>Folge uns auf Social Media</h6>
+                            <a href="https://www.instagram.com/teamvigan/" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/instagram-vigan.png?v=1615461089" style="width:35px; height: 35px"></a>  
+                            <a href="https://web.facebook.com/teamvigan" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/facebook-vigan.png?v=1615461088" style="width:35px; height: 35px"></a>  
+                            <a href="https://www.youtube.com/channel/UCJQvwAq_lDJ2eWSxffsnodQ" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/youtube-vigan.png?v=1615461088" style="width:35px; height: 35px"></a>  
+                            <a href="https://www.tiktok.com/@teamvigan" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/tiktok-vigan.png?v=1615461088" style="width:35px; height: 35px"></a>  
+                            <a href="https://anchor.fm/teamvigan" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/podcast-vigan.png?v=1615461088" style="width:35px; height: 35px"></a>  
+                            <a href="https://www.pinterest.ch/teamvigan/" rel="nofollow"><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/pinterest-vigan.png?v=1615461088" style="width:35px; height: 35px"></a>
+
+                            <br><br><br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+</div>
+
+{% schema %}
+{
+"name": "Footer",
+"settings": [
+{
+"type": "image_picker",
+"id": "logo_image",
+"label": "Logo"
+},
+{
+"type": "url",
+"id": "logo_link",
+"label": "Logo link"
+}
+],
+"blocks": [
+{
+"type": "menu",
+"name": "menu",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title"
+},
+{
+"type": "link_list",
+"id": "linklist2",
+"label": "Navigation Link List"
+}
+]
+},
+{
+
+"type": "html",
+"name": "custom HTML",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title"
+},
+{
+"type": "html",
+"id": "ctm-html",
+"label": "html"
+}
+]
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

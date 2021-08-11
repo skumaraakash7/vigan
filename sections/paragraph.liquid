@@ -1,0 +1,46 @@
+<div class="container container-fluid-custom-mobile-padding paragraph-wrapper">
+    <h6>{{ section.settings.title }}</h6>
+    <p>{{ section.settings.text }}</p>
+</div>
+
+<style>
+    #shopify-section-{{ section.id }} .paragraph-wrapper p {
+        margin: 0;
+    }
+    #shopify-section-{{ section.id }} .paragraph-wrapper h6 {
+        font-weight: 800;
+        padding-top: 15px;
+        padding-bottom: 10px;
+        color: #353535;
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Paragraph",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Titel"
+        },
+        {
+            "type": "textarea",
+            "id": "text",
+            "label": "Text"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Paragraph",
+            "category": "vigan"
+        }
+    ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
