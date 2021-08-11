@@ -36,7 +36,7 @@
     <li>
       {% if forloop.first == false %}
         {% if link.title != 'Sales' and icon-src != blank %}
-          <a href="{{ link.url }}"><span><img src="{{ icon-src }}" class="menu-icon">{{ link.title }}</span></a>
+          <a href="{{ link.url }}"><span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ icon-src }}" class="menu-icon lazy2">{{ link.title }}</span></a>
         {% elsif link.title == 'Sales' %}
           <a href="{{ link.url }}" class="sales-a"><span><span class="sales-span">%</span>{{ link.title }}</span></a>
         {% else %}
@@ -44,7 +44,7 @@
         {% endif %}
       {% else %}
         {% if icon-src != blank %}
-          <a href="{{ link.url }}"{% if section.settings.special_icon != blank %}class="special-item"{% endif %}><span><img src="{{ icon-src }}" class="menu-icon">{{ link.title }}</span></a>
+          <a href="{{ link.url }}"{% if section.settings.special_icon != blank %}class="special-item"{% endif %}><span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ icon-src }}" class="menu-icon lazy2">{{ link.title }}</span></a>
         {% else %}
           <a href="{{ link.url }}">{{ link.title }}</a>
         {% endif %}

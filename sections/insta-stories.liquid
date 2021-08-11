@@ -4,7 +4,7 @@
             {% if block.type == 'story' %}
                 <div class="story">
                     <a href="{{ block.settings.url }}">
-                        <img src="{{ block.settings.image | img_url: 'master' }}"
+                        <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.image | img_url: 'master' }}"
                              style="{% if block.settings.pink_border %}border-color:#fe0062!important;{% endif %}">
                     </a>
                     <span style="{% if block.settings.pink_text %}color:#fe0062!important;{% endif %}">{{ block.settings.text }}</span>
@@ -126,9 +126,3 @@
     ]
 }
 {% endschema %}
-
-{% stylesheet %}
-{% endstylesheet %}
-
-{% javascript %}
-{% endjavascript %}

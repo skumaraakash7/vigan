@@ -12,16 +12,21 @@
       {%- assign main_url_image = main_url_image | product_img_url: url_images_size -%}
       {%- if settings.use_cached_images %}{%- assign main_url_image = main_url_image | split: '?' | first -%}{%- endif -%}
       <span class="tt-img">
-        <img class="lazyload"
+        <img class="lazyloaded lazy2"
              data-mainimageratio = '{{ product.featured_image.aspect_ratio }}'
-             data-mainimage="{{ product.featured_image | product_img_url: '100x100' | replace: '100x100', 'respimgsize' }}"
+			 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+			 data-src="{{ product.featured_image | product_img_url: '720x' }}"
+			 data-mobsrc="{{ product.featured_image | product_img_url: '480x' }}"
              alt="{{ product.featured_image.alt | escape }}"/>
       </span>
       {%- if hover_url_image != '' -%}
       {%- assign hover_url_image = hover_url_image | product_img_url: url_images_size -%}
       {%- if settings.use_cached_images %}{%- assign hover_url_image = hover_url_image | split: '?' | first -%}{%- endif -%}
       <span class="tt-img-roll-over">
-        <img class="lazyload" src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
+        <img class="lazyloaded lazy2"
+		src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+		data-src="{{ hover_url_image }}"
+		alt="{{ hover_url_image_alt }}">
       </span>
       {%- endif -%}
     </a>
@@ -82,16 +87,18 @@
         {%- assign main_url_image = main_url_image | product_img_url: url_images_size -%}
         {%- if settings.use_cached_images %}{%- assign main_url_image = main_url_image | split: '?' | first -%}{%- endif -%}
         <span class="tt-img">        
-          <img class="lazyload"
+          <img class="lazyloaded lazy2"
               data-mainimageratio = '{{ product.featured_image.aspect_ratio }}'
-              data-mainimage="{{ product.featured_image | product_img_url: '100x100' | replace: '100x100', 'respimgsize' }}"
+			  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+			  data-src="{{ product.featured_image | product_img_url: '720x' }}"
+			  data-mobsrc="{{ product.featured_image | product_img_url: '480x' }}"
               alt="{{ product.featured_image.alt | escape }}"/>
         </span>
         {%- if hover_url_image != '' -%}
           {%- assign hover_url_image = hover_url_image | product_img_url: url_images_size -%}
           {%- if settings.use_cached_images %}{%- assign hover_url_image = hover_url_image | split: '?' | first -%}{%- endif -%}
         <span class="tt-img-roll-over">
-          <img class="lazyload" src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
+          <img class="lazyloaded lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
         </span>
         {%- endif -%} 
         
@@ -171,11 +178,11 @@
     <!-- review dynamic -->
     <div class="v-rating">
       <ul class="list-unstyled list-inline">
-        <li><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
-        <li><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
-        <li><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
-        <li><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
-        <li><img src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
+        <li><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
+        <li><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
+        <li><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
+        <li><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
+        <li><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="https://cdn.shopify.com/s/files/1/0542/1056/0181/files/stern.png?v=1613462075" style="heght:15px; width:15px;"></li>
       </ul>
     </div>
     {% endcomment %}
