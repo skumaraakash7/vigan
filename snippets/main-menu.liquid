@@ -15,7 +15,6 @@
       {% if section.settings.special_icon != blank and forloop.first %}
         {% assign icon-src = section.settings.special_icon %}
       {% endif %}
-
       {% if link.title == 'vigan Produkte' %}
     	{% assign icon-src = vigan-icon %}
       {% elsif link.title == 'Lebensmittel' %}
@@ -31,13 +30,12 @@
       {% elsif link.title == 'Geschenke' %}
     	{% assign icon-src = geschenke-icon %}
       {% endif %}    
-    
-    
+
       {%- assign submenu_type = "" -%}
       {%- capture return -%}{%- include "get_linklist_dropdown", customlink: link -%}{%- endcapture -%}
       {%- assign return = return | split: "%%" -%}
       {%- assign child_list_handle = return | last | strip -%}
-    
+
       {%- comment -%} Check submenu type {%- endcomment -%}
       {%- assign title = child_list_handle -%}
       {%- assign _title = title | append: '_' -%}
@@ -70,7 +68,7 @@
     <li class="dropdown{% if link.active %} selected{% endif %}{% if submenu_type == 'menu_two_columns' %} tt-megamenu-col-02{% elsif submenu_type == 'megamenu' %} megamenu{% else %} tt-megamenu-col-01{% endif %}{% unless level_2.empty? %}{% if settings.use_submemu_arrows %} submenuarrow{% endif %}{% endunless %}" {{ block.shopify_attributes }}>
         {% if forloop.first == false %}
             {% if link.title != 'Sales' and icon-src != blank %}
-                <a href="{{ link.url }}"><span><img src="{{ icon-src }}" class="menu-icon">{{ link.title }}</span></a>
+                <a href="{{ link.url }}"><span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ icon-src }}" class="menu-icon lazy2">{{ link.title }}</span></a>
             {% elsif link.title == 'Sales' %}
                 <a href="{{ link.url }}" class="sales-a"><span><span class="sales-span">%</span>{{ link.title }}</span></a>
             {% else %}
@@ -78,7 +76,7 @@
             {% endif %}
         {% else %}
             {% if icon-src != blank %}
-                <a href="{{ link.url }}"{% if section.settings.special_icon != blank %}class="special-item"{% endif %}><span><img src="{{ icon-src }}" class="menu-icon">{{ link.title }}</span></a>
+                <a href="{{ link.url }}"{% if section.settings.special_icon != blank %}class="special-item"{% endif %}><span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ icon-src }}" class="menu-icon lazy2">{{ link.title }}</span></a>
             {% else %}
                 <a href="{{ link.url }}">{{ link.title }}</a>
             {% endif %}
